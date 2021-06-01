@@ -12,16 +12,20 @@ mnemonic=os.getenv("mnemonic")
  
  
 # Create a function called `derive_wallets`
-def derive_wallets(# YOUR CODE HERE):
-    command = # YOUR CODE HERE
+def derive_wallets(mnemonic, coin, numderive):
+    command = f'php ./hd-wallet-derive/hd-wallet-derive.php -g --mnemonic="{mnemonic}" --numderive="{numderive}" --coin="{coin}" --format=json'
     p = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True)
     output, err = p.communicate()
     p_status = p.wait()
-    return json.loads(output)
+    keys = return json.loads(output)
+    return  keys
 
 # Create a dictionary object called coins to store the output from `derive_wallets`.
-coins = # YOUR CODE HERE
-
+coins = # {"eth", "btc-test", "btc"}
+keys = {}
+for coin in coins:
+    keys[coin]= derive_wallets(os.getenv('mnemonic'), coin, numderive=3)
+    
 # Create a function called `priv_key_to_account` that converts privkey strings to account objects.
 def priv_key_to_account(# YOUR CODE HERE):
     # YOUR CODE HERE
